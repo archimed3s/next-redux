@@ -1,19 +1,7 @@
 import * as next from 'next';
 import * as express from 'express';
-import jwt from 'express-jwt';
-import cookieParser from 'cookie-parser';
-import jwksRsa from 'jwks-rsa';
-
-const checkJwt = jwt({
-	secret: jwksRsa.expressJwtSecret({
-		cache: true,
-		rateLimit: true,
-		jwksUri: `https://pupil-test.eu.auth0.com/.well-known/jwks.json`
-	}),
-	audience: 'https://api.test.hellopupil.com',
-	algorithms: ['RS256'],
-	getToken: (req) => req.cookies.token
-});
+import * as request from 'request-promise-native';
+import * as cookieParser from 'cookie-parser';
 
 const port = parseInt(process.env.PORT || '2019', 10),
 	dev = process.env.NODE_ENV !== 'production',
@@ -28,7 +16,28 @@ app.prepare().then(() => {
 	server.use(cookieParser());
 
 	server.get('/health', (_req, res) => res.sendStatus(200));
-	server.get('/*', checkJwt, (req, res) => {
+
+	server.get('/orders', (req, res) => {
+    const authHeader = `Bearer ${req.cookies.accessToken}`;
+    console.log(authHeader);
+    if (!authHeader) {
+    	res.status(403).send('No Auth Token');
+    }
+    const query = {
+        url: `http://apiproxy.test.hellopupil.com/order/v1/orders`,
+        method: 'GET',
+        headers: {
+            Authorization: authHeader
+        },
+        json: true,
+        qsStringifyOptions: {arrayFormat: 'repeat'}
+    };
+
+    request(query).promise().then(orders => res.send(orders)).catch(err => console.log(err));
+	});
+
+ 	/* Client routes */
+	server.get('/*', (req, res) => {
 		return handle(req, res);
 	});
 
