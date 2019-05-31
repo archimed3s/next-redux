@@ -14,7 +14,7 @@
     "build": "next build src/client && tsc --project tsconfig.server.json",
     "prod": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node dist/server",
     "serve": "nodemon",
-    "lint": "tslint --fix -c tslint.json -p tsconfig.json && stylelint './src/**/*.tsx' --config stylelint.config.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json && stylelint './src/**/*.tsx' --config stylelint.config.js",
     "test": "jest",
     "testdev": "jest --watchAll",
     "cover": "jest --coverage",

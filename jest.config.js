@@ -10,7 +10,7 @@ module.exports = {
 		'<rootDir>/dist/',
 		'<rootDir>/node_modules/',
 		'<rootDir>/src/client/static/coverage/',
-		'<rootDir>/src/client/static/docs/',
+		'<rootDir>/src/client/static/docs/'
 	],
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 	collectCoverage: true,
