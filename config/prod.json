@@ -1,0 +1,6 @@
+{
+    "Environment": "PROD",
+    "CapturesTableQueryFunctionArn":
+        "arn:aws:lambda:eu-west-1:722472279139:function:PROD-capture-stitch-state-CapturesTableQueryLambda-2EUEJSXIQNUU",
+        "FloorplanReprocessorFunctionArn": "arn:aws:lambda:eu-west-1:722472279139:function:PROD-floorplan-reprocessor-v3"
+}

@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to create dp-dashboard infrastructure
+Parameters:
+  Environment:
+    Type: String
+    Description: Environment name
+  CapturesTableQueryFunctionArn:
+    Type: String
+    Description: ARN for capture-stitch-state-CapturesTableQueryLambda function
+  FloorplanReprocessorFunctionArn:
+    Type: String
+    Description: ARN of the reprocess lambda function
+Resources:
+  OrderWebAppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: !Join ["-", [!Ref Environment, "dp-dashboard-policy"]]
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource:
+                  - !Ref CapturesTableQueryFunctionArn
+                  - !Ref FloorplanReprocessorFunctionArn
+                Effect: "Allow"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier
+  OrderWebAppInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref OrderWebAppRole
+      InstanceProfileName: !Join ["-", [!Ref Environment, "dp-dashboard"]]

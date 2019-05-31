@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "module": "commonjs",
+    "target": "es2018",
+    "lib": [
+      "es2017",
+      "es2018"
+    ]
+  },
+  "include": [
+    "src/server/index.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "src/client/static/coverage/**/*",
+    "src/client/static/docs/**/*"
+  ]
+}
