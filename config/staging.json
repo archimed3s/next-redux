@@ -1,6 +1,0 @@
-{
-    "Environment": "STAGING",
-    "CapturesTableQueryFunctionArn":
-        "arn:aws:lambda:eu-west-1:722472279139:function:STAGING-capture-stitch-st-CapturesTableQueryLambda-KN1E47CX9IPY",
-        "FloorplanReprocessorFunctionArn": "arn:aws:lambda:eu-west-1:722472279139:function:STAGING-floorplan-reprocessor-v3"
-}

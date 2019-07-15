@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
+    "strict": true,
     "module": "commonjs",
     "target": "es2018",
     "lib": [

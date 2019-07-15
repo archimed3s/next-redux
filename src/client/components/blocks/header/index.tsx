@@ -1,6 +1,7 @@
 import * as style from './styles';
 import Link from 'elements/link';
 import logo from './icons/logo.svg?include';
+import Cookie from 'js-cookie';
 
 export default () => <style.Header>
 	<Link passHref href='/'>
@@ -25,6 +26,7 @@ export default () => <style.Header>
 		</style.UlNavHeader>
 	</style.NavHeader>
 	<style.ButtonHeader>
+		{ Cookie.get('accessToken') !== undefined && <p>Logged In</p> }
 		<style.SpanPointHeader/>
 	</style.ButtonHeader>
 </style.Header>;
