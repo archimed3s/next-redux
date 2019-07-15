@@ -1,6 +1,5 @@
 import auth0 from 'auth0-js';
 import Cookie from 'js-cookie';
-import jwtDecode from 'jwt-decode';
 
 const CONFIG = {
 	AUTH0_CLIENT_DOMAIN: 'pupil-test.eu.auth0.com',
@@ -22,7 +21,7 @@ const getOptions = () => {
 	return {
 		responseType: 'token',
 		redirectUri: `${getBaseUrl()}/loggedin`,
-		scope: 'openid list:order list:job get:order get:job'
+		scope: 'openid listUnrestricted:order'
 	};
 };
 

@@ -18,25 +18,26 @@ app.prepare().then(() => {
 	server.get('/health', (_req, res) => res.sendStatus(200));
 
 	server.get('/orders', (req, res) => {
-    const authHeader = `Bearer ${req.cookies.accessToken}`;
-    console.log(authHeader);
-    if (!authHeader) {
-    	res.status(403).send('No Auth Token');
-    }
-    const query = {
-        url: `http://apiproxy.test.hellopupil.com/order/v1/orders`,
-        method: 'GET',
-        headers: {
-            Authorization: authHeader
-        },
-        json: true,
-        qsStringifyOptions: {arrayFormat: 'repeat'}
-    };
+		console.log(req.cookies.accessToken);
+		const authHeader = `Bearer ${req.cookies.accessToken}`;
+		// console.log(authHeader);
+		if (!authHeader) {
+			res.status(403).send('No Auth Token');
+		}
+		const query = {
+			url: `http://apiproxy.test.hellopupil.com/order/v1/orders`,
+			method: 'GET',
+			headers: {
+				Authorization: authHeader
+			},
+			json: true,
+			qsStringifyOptions: {arrayFormat: 'repeat'}
+		};
 
-    request(query).promise().then(orders => res.send(orders)).catch(err => console.log(err));
+		request(query).promise().then(orders => res.send(orders)).catch(err => console.log(err));
 	});
 
- 	/* Client routes */
+	/* Client routes */
 	server.get('/*', (req, res) => {
 		return handle(req, res);
 	});
